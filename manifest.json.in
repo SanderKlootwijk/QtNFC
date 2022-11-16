@@ -1,0 +1,15 @@
+{
+    "name": "qtnfc.sanderklootwijk",
+    "description": "App to test QtNFC",
+    "architecture": "@CLICK_ARCH@",
+    "title": "QtNFC",
+    "hooks": {
+        "qtnfc": {
+            "apparmor": "qtnfc.apparmor",
+            "desktop":  "qtnfc.desktop"
+        }
+    },
+    "version": "1.0.0",
+    "maintainer": "Sander Klootwijk <sander.klootwijk@tutanota.com>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
