@@ -15,6 +15,10 @@
  */
 
 #include <QDebug>
+#include <QNdefRecord>
+#include <QNdefMessage>
+#include <QNearFieldManager>
+#include <QNearFieldTarget>
 
 #include "example.h"
 
@@ -32,8 +36,8 @@ void Example::speak() {
     qDebug() << "hello world!";
 }
 
-void Example::ndefwrite() {
-    m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << ndefMessage());
+void Example::ndefWrite(QNdefRecord ndefRecord) {
+    m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
 }
 
 void Example::targetDetected(QNearFieldTarget *target)

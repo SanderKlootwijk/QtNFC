@@ -18,11 +18,12 @@
 #define EXAMPLE_H
 
 #include <QObject>
-
-#include <QtNfc/qnearfieldtarget.h>
+#include <QNdefRecord>
+#include <QNearFieldManager>
+#include <QNearFieldTarget>
 
 QT_FORWARD_DECLARE_CLASS(QNearFieldManager)
-//QT_FORWARD_DECLARE_CLASS(QNdefMessage)
+QT_FORWARD_DECLARE_CLASS(QNdefRecord)
 
 class Example: public QObject {
     Q_OBJECT
@@ -32,7 +33,7 @@ public:
     ~Example() = default;
 
     Q_INVOKABLE void speak();
-    Q_INVOKABLE void ndefwrite();
+    Q_INVOKABLE void ndefWrite(QNdefRecord ndefRecord);
 
 private:
     enum TouchAction {
