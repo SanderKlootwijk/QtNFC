@@ -16,6 +16,7 @@
 
 #include <QDebug>
 #include <QNdefRecord>
+#include <QNdefNfcTextRecord>
 #include <QNdefMessage>
 #include <QNearFieldManager>
 #include <QNearFieldTarget>
@@ -36,8 +37,19 @@ void Example::speak() {
     qDebug() << "hello world!";
 }
 
-void Example::ndefWrite(QNdefRecord ndefRecord) {
-    m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
+void Example::ndefWrite(const QString &text) {
+
+    if (m_target != NULL) {
+        QNdefNfcTextRecord ndefRecord;
+
+        ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
+
+        //ndefRecord.setLocale("en-EN");
+
+        ndefRecord.setText(text.toUtf8());
+
+        m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
+    }
 }
 
 void Example::targetDetected(QNearFieldTarget *target)

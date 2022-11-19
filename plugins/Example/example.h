@@ -33,7 +33,7 @@ public:
     ~Example() = default;
 
     Q_INVOKABLE void speak();
-    Q_INVOKABLE void ndefWrite(QNdefRecord ndefRecord);
+    Q_INVOKABLE void ndefWrite(const QString &text);
 
 private:
     enum TouchAction {
@@ -43,7 +43,7 @@ private:
     };
     QNearFieldManager *m_manager;
     TouchAction m_touchAction;
-    QNearFieldTarget *m_target;
+    QNearFieldTarget *m_target = NULL;
     QNearFieldTarget::RequestId m_request;
     void targetDetected(QNearFieldTarget *target);
     void targetLost(QNearFieldTarget *target);

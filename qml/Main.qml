@@ -64,7 +64,7 @@ MainView {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: i18n.tr('Press here!')
-                onClicked: Example.ndefWrite(ndefRecord)
+                onClicked: Example.ndefWrite("This is a test")
             }
 
             Item {
