@@ -29,6 +29,9 @@ MainView {
     objectName: 'mainView'
     applicationName: 'qtnfc.sanderklootwijk'
     automaticOrientation: true
+    anchorToKeyboard: true
+
+    property bool nfctag: false
 
     width: units.gu(45)
     height: units.gu(75)
@@ -52,47 +55,71 @@ MainView {
             }
 
             Item {
-                Layout.fillHeight: true
+                height: units.gu(2)
+            }
+
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: root.nfctag ? "NFC tag detected" : "No NFC tag detected"
+                color: root.nfctag ? "green" : "red"
+            }
+
+            Label {
+                id: nfcLabel
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: 'Text on NFC tag: '
             }
 
             Label {
                 id: label
-                Layout.alignment: Qt.AlignHCenter
-                text: i18n.tr('Press the button below and check the logs!')
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr('Press the button below to write a message to a NFC tag')
+            }
+
+            TextField {
+                id: inputField
+                width: parent.width
+                height: units.gu(3.5)
+                anchors.horizontalCenter: parent.horizontalCenter
+                inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
             }
 
             Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: i18n.tr('Press here!')
-                onClicked: Example.ndefWrite("This is a test")
+                id: writeButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr('Write')
+                onClicked: {
+                    console.log("Writing to NFC tag")
+                    Example.ndefWrite(inputField.text)
+                }
             }
 
-            Item {
-                Layout.fillHeight: true
-            }
-
-            NdefTextRecord {
-                id: ndefRecord
-                text: "This is a test..."
-            }
-
-            // NearField {
-            //     filter: [ NdefFilter { type: "T"; typeNameFormat: NdefRecord.NfcRtd; minimum: 1; maximum: 1} ]
-            //     orderMatch: false
-
-            //     onMessageRecordsChanged: {
-            //         console.log("read",JSON.stringify(messageRecords))
-            //             //NdefTextRecord(messageRecords[0]).text = "Poging tot iets anders"
-            //             console.log(messageRecords[0]["text"])
-            //             messageRecords[0]["text"] = "Volgende poging tot iets anders..."
-            //             console.log(messageRecords[0]["text"])
-            //         //if(messageRecords[0].type == "T") {
-            //         //}
-            //     }
-                    
-            //     onTagFound: console.log("tag found!")
-            //     onTagRemoved: console.log("tag removed!")
+            // NdefTextRecord {
+            //     id: ndefRecord
+            //     text: "This is a test..."
             // }
+
+            NearField {
+                filter: [ NdefFilter { type: "T"; typeNameFormat: NdefRecord.NfcRtd; minimum: 1; maximum: 1} ]
+                orderMatch: false
+
+                onMessageRecordsChanged: {
+                    //console.log("read",JSON.stringify(messageRecords))
+                    console.log(messageRecords[0]["text"])
+                    nfcLabel.text = 'Text on NFC tag: ' + '\n' + messageRecords[0]["text"]
+                    //if(messageRecords[0].type == "T") {
+                    //}
+                }
+                    
+                onTagFound: {
+                    console.log("tag found!")
+                    root.nfctag = true
+                }
+                onTagRemoved: {
+                    console.log("tag removed!")
+                    root.nfctag = false
+                }
+            }
         }
     }
 }

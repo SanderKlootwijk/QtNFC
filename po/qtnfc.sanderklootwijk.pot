@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qtnfc.sanderklootwijk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-16 20:49+0000\n"
+"POT-Creation-Date: 2022-11-30 19:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:41 qtnfc.desktop.in.h:1
+#: ../qml/Main.qml:44 qtnfc.desktop.in.h:1
 msgid "QtNFC"
 msgstr ""
 
-#: ../qml/Main.qml:61
-msgid "Press the button below and check the logs!"
+#: ../qml/Main.qml:76
+msgid "Press the button below to write a message to a NFC tag"
 msgstr ""
 
-#: ../qml/Main.qml:66
-msgid "Press here!"
+#: ../qml/Main.qml:90
+msgid "Write"
 msgstr ""
