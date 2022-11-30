@@ -64,30 +64,35 @@ MainView {
             Button {
                 Layout.alignment: Qt.AlignHCenter
                 text: i18n.tr('Press here!')
-                onClicked: Example.speak()
+                onClicked: Example.ndefWrite("This is a test")
             }
 
             Item {
                 Layout.fillHeight: true
             }
 
-            NearField {
-                filter: [ NdefFilter { type: "T"; typeNameFormat: NdefRecord.NfcRtd; minimum: 1; maximum: 1} ]
-                orderMatch: false
-
-                onMessageRecordsChanged: {
-                    console.log("read",JSON.stringify(messageRecords))
-                        //NdefTextRecord(messageRecords[0]).text = "Poging tot iets anders"
-                        console.log(messageRecords[0]["text"])
-                        messageRecords[0]["text"] = "Volgende poging tot iets anders..."
-                        console.log(messageRecords[0]["text"])
-                    //if(messageRecords[0].type == "T") {
-                    //}
-                }
-                    
-                onTagFound: console.log("tag found!")
-                onTagRemoved: console.log("tag removed!")
+            NdefTextRecord {
+                id: ndefRecord
+                text: "This is a test..."
             }
+
+            // NearField {
+            //     filter: [ NdefFilter { type: "T"; typeNameFormat: NdefRecord.NfcRtd; minimum: 1; maximum: 1} ]
+            //     orderMatch: false
+
+            //     onMessageRecordsChanged: {
+            //         console.log("read",JSON.stringify(messageRecords))
+            //             //NdefTextRecord(messageRecords[0]).text = "Poging tot iets anders"
+            //             console.log(messageRecords[0]["text"])
+            //             messageRecords[0]["text"] = "Volgende poging tot iets anders..."
+            //             console.log(messageRecords[0]["text"])
+            //         //if(messageRecords[0].type == "T") {
+            //         //}
+            //     }
+                    
+            //     onTagFound: console.log("tag found!")
+            //     onTagRemoved: console.log("tag removed!")
+            // }
         }
     }
 }
