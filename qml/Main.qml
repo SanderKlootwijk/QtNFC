@@ -93,6 +93,15 @@ MainView {
                     Example.ndefWrite(inputField.text)
                 }
             }
+            Button {
+                id: writeUriButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr('WriteURL')
+                onClicked: {
+                    console.log("Writing to NFC tag")
+                    Example.ndefWriteURI(inputField.text)
+                }
+            }
 
             // NdefTextRecord {
             //     id: ndefRecord
@@ -104,7 +113,7 @@ MainView {
                 orderMatch: false
 
                 onMessageRecordsChanged: {
-                    //console.log("read",JSON.stringify(messageRecords))
+                    console.log("read",JSON.stringify(messageRecords))
                     console.log(messageRecords[0]["text"])
                     nfcLabel.text = 'Text on NFC tag: ' + '\n' + messageRecords[0]["text"]
                     //if(messageRecords[0].type == "T") {

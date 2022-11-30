@@ -17,6 +17,7 @@
 #include <QDebug>
 #include <QNdefRecord>
 #include <QNdefNfcTextRecord>
+#include <QNdefNfcUriRecord>
 #include <QNdefMessage>
 #include <QNearFieldManager>
 #include <QNearFieldTarget>
@@ -47,6 +48,20 @@ void Example::ndefWrite(const QString &text) {
         //ndefRecord.setLocale("en-EN");
 
         ndefRecord.setText(text.toUtf8());
+
+        m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
+    }
+}
+void Example::ndefWriteURI(const QUrl &uri) {
+
+    if (m_target != NULL) {
+        QNdefNfcUriRecord ndefRecord;
+
+//        ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
+
+        //ndefRecord.setLocale("en-EN");
+
+        ndefRecord.setUri(uri);
 
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
     }

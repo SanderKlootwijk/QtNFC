@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qtnfc.sanderklootwijk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 19:00+0000\n"
+"POT-Creation-Date: 2022-11-30 20:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,4 +27,8 @@ msgstr ""
 
 #: ../qml/Main.qml:90
 msgid "Write"
+msgstr ""
+
+#: ../qml/Main.qml:99
+msgid "WriteURL"
 msgstr ""
