@@ -91,6 +91,8 @@ MainView {
                 onClicked: {
                     console.log("Writing to NFC tag")
                     Example.ndefWrite(inputField.text)
+
+
                 }
             }
             Button {
@@ -98,8 +100,10 @@ MainView {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: i18n.tr('WriteURL')
                 onClicked: {
+                    tryit.polling = false
                     console.log("Writing to NFC tag")
                     Example.ndefWriteURI(inputField.text)
+                    tryit.polling = true
                 }
             }
 
@@ -109,9 +113,11 @@ MainView {
             // }
 
             NearField {
+
+                id: tryit
                 filter: [ NdefFilter { type: "T"; typeNameFormat: NdefRecord.NfcRtd; minimum: 1; maximum: 1} ]
                 orderMatch: false
-
+                
                 onMessageRecordsChanged: {
                     console.log("read",JSON.stringify(messageRecords))
                     console.log(messageRecords[0]["text"])
