@@ -23,7 +23,7 @@
 #include <QNearFieldTarget>
 
 #include "example.h"
-
+// NFCCommunicator
 Example::Example() {
     //! [QNearFieldManager init]
     m_manager = new QNearFieldManager(this);
@@ -39,52 +39,28 @@ void Example::speak() {
 }
 
 void Example::ndefWrite(const QString &text) {
-
     if (m_target != NULL) {
         QNdefNfcTextRecord ndefRecord;
-
         ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
-
-        //ndefRecord.setLocale("en-EN");
-
         ndefRecord.setText(text.toUtf8());
-
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
     }
 }
 void Example::ndefWriteURI(const QUrl &uri) {
-
     if (m_target != NULL) {
         QNdefNfcUriRecord ndefRecord;
-
-//        ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
-
-        //ndefRecord.setLocale("en-EN");
-
         ndefRecord.setUri(uri);
-
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
     }
 }
 void Example::ndefReadMessages() {
-    qDebug() << "Dit komt van onszelf 1";
-
     if (m_target != NULL) {
         QNdefNfcUriRecord ndefRecord;
-
-//        ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
-        qDebug() << "Dit komt van onszelf 2";
-
-        //ndefRecord.setLocale("en-EN");
         m_request  = m_target->readNdefMessages();
-        //ndefRecord.setUri(uri);
         qDebug() << "Dit komt van onszelf 3";
-        //m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
-        //return "Dit komt uit de C++ lees functie";
     }
 }
 void Example::ndefMessageRead(const QNdefMessage &message){
-    qDebug() << "ONze eigen def FUNCTIE";
     for (const QNdefRecord &record : message) {
         if (record.isRecordType<QNdefNfcTextRecord>()) {
             qDebug() << ((QNdefNfcTextRecord)record).text(); 
@@ -107,10 +83,7 @@ void Example::targetDetected(QNearFieldTarget *target)
     qDebug() << "In Target Detected";
     m_target = target;
     connect(target, &QNearFieldTarget::ndefMessageRead, this, &Example::ndefMessageRead);
-//    connect(target, &QNearFieldTarget::error, this, &Example::targetError);
-
 }
-
 void Example::targetLost(QNearFieldTarget *target)
 {
     m_target = NULL;

@@ -16,7 +16,6 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
-//import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
@@ -111,18 +110,10 @@ MainView {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: i18n.tr('ReadTest')
                 onClicked: {
-                    console.log("in de knop");
-                    var a = Example.ndefReadMessages();
-                    console.log(a);
-                    console.log(">>>>>>>>>>>>>");
+                    console.log("in de knop voor lezen");
+                    Example.ndefReadMessages();
                 }
             }
-
-            // NdefTextRecord {
-            //     id: ndefRecord
-            //     text: "This is a test..."
-            // }
-
             NearField {
 
                 id: tryit
@@ -130,11 +121,8 @@ MainView {
                 orderMatch: false
                 
                 onMessageRecordsChanged: {
-                    console.log("read",JSON.stringify(messageRecords))
-                    console.log(messageRecords[0]["text"])
+//                    console.log("read",JSON.stringify(messageRecords))
                     nfcLabel.text = 'Text on NFC tag: ' + '\n' + messageRecords[0]["text"]
-                    //if(messageRecords[0].type == "T") {
-                    //}
                 }
                     
                 onTagFound: {
