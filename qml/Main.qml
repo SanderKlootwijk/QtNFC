@@ -106,6 +106,17 @@ MainView {
                     tryit.polling = true
                 }
             }
+            Button {
+                id: readUriButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: i18n.tr('ReadTest')
+                onClicked: {
+                    console.log("in de knop");
+                    var a = Example.ndefReadMessages();
+                    console.log(a);
+                    console.log(">>>>>>>>>>>>>");
+                }
+            }
 
             // NdefTextRecord {
             //     id: ndefRecord

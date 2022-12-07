@@ -35,6 +35,8 @@ public:
     Q_INVOKABLE void speak();
     Q_INVOKABLE void ndefWrite(const QString &text);
     Q_INVOKABLE void ndefWriteURI(const QUrl &uri);
+    Q_INVOKABLE void ndefReadMessages();
+    Q_INVOKABLE void ndefMessageRead(const QNdefMessage &message);
 
 private:
     enum TouchAction {

@@ -66,10 +66,49 @@ void Example::ndefWriteURI(const QUrl &uri) {
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
     }
 }
+void Example::ndefReadMessages() {
+    qDebug() << "Dit komt van onszelf 1";
 
+    if (m_target != NULL) {
+        QNdefNfcUriRecord ndefRecord;
+
+//        ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
+        qDebug() << "Dit komt van onszelf 2";
+
+        //ndefRecord.setLocale("en-EN");
+        m_request  = m_target->readNdefMessages();
+        //ndefRecord.setUri(uri);
+        qDebug() << "Dit komt van onszelf 3";
+        //m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
+        //return "Dit komt uit de C++ lees functie";
+    }
+}
+void Example::ndefMessageRead(const QNdefMessage &message){
+    qDebug() << "ONze eigen def FUNCTIE";
+    for (const QNdefRecord &record : message) {
+        if (record.isRecordType<QNdefNfcTextRecord>()) {
+            qDebug() << ((QNdefNfcTextRecord)record).text(); 
+//            addRecord<TextRecordEditor>(ui, record);
+        } else if (record.isRecordType<QNdefNfcUriRecord>()) {
+            qDebug() << "abc";//((QNdefNfcUriRecord)record).uri().toString(); 
+//            addRecord<UriRecordEditor>(ui, record);
+//        } else if (record.typeNameFormat() == QNdefRecord::Mime &&
+  //                record.type().startsWith("image/")) {
+  //          addRecord<MimeImageRecordEditor>(ui, record);
+    //    } else if (record.isEmpty()) {
+      //      addRecord<EmptyRecordLabel>(ui);
+        //} else {
+          //  addRecord<UnknownRecordLabel>(ui, record);
+        }
+    }
+}
 void Example::targetDetected(QNearFieldTarget *target)
 {
+    qDebug() << "In Target Detected";
     m_target = target;
+    connect(target, &QNearFieldTarget::ndefMessageRead, this, &Example::ndefMessageRead);
+//    connect(target, &QNearFieldTarget::error, this, &Example::targetError);
+
 }
 
 void Example::targetLost(QNearFieldTarget *target)
