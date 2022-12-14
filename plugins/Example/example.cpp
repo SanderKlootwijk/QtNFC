@@ -44,7 +44,9 @@ void Example::ndefWrite(const QString &text) {
         ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
         ndefRecord.setText(text.toUtf8());
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
+        m_target->disconnect();
     }
+    
 }
 void Example::ndefWriteURI(const QUrl &uri) {
     if (m_target != NULL) {
@@ -54,7 +56,9 @@ void Example::ndefWriteURI(const QUrl &uri) {
     }
 }
 void Example::ndefReadMessages() {
+    
     if (m_target != NULL) {
+        
         QNdefNfcUriRecord ndefRecord;
         m_request  = m_target->readNdefMessages();
         qDebug() << "Dit komt van onszelf 3";
