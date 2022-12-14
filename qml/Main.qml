@@ -21,7 +21,7 @@ import Qt.labs.settings 1.0
 
 import QtNfc 5.12
 
-import Example 1.0
+import NFCCommunicator 1.0
 
 MainView {
     id: root
@@ -89,7 +89,7 @@ MainView {
                 text: i18n.tr('Write')
                 onClicked: {
                     console.log("Writing to NFC tag")
-                    Example.ndefWrite(inputField.text)
+                    NFCCommunicator.ndefWrite(inputField.text)
 
 
                 }
@@ -101,7 +101,7 @@ MainView {
                 onClicked: {
                     tryit.polling = false
                     console.log("Writing to NFC tag")
-                    Example.ndefWriteURI(inputField.text)
+                    NFCCommunicator.ndefWriteURI(inputField.text)
                     tryit.polling = true
                 }
             }
@@ -111,7 +111,7 @@ MainView {
                 text: i18n.tr('ReadTest')
                 onClicked: {
                     console.log("in de knop voor lezen");
-                    Example.ndefReadMessages();
+                    NFCCommunicator.ndefReadMessages();
                 }
             }
             NearField {

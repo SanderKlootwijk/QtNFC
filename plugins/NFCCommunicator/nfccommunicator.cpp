@@ -22,40 +22,40 @@
 #include <QNearFieldManager>
 #include <QNearFieldTarget>
 
-#include "example.h"
+#include "nfccommunicator.h"
 // NFCCommunicator
-Example::Example() {
+NFCCommunicator::NFCCommunicator() {
     //! [QNearFieldManager init]
     m_manager = new QNearFieldManager(this);
     connect(m_manager, &QNearFieldManager::targetDetected,
-            this, &Example::targetDetected);
+            this, &NFCCommunicator::targetDetected);
     connect(m_manager, &QNearFieldManager::targetLost,
-            this, &Example::targetLost);
+            this, &NFCCommunicator::targetLost);
     //! [QNearFieldManager init]
 }
 
-void Example::speak() {
+void NFCCommunicator::speak() {
     qDebug() << "hello world!";
 }
 
-void Example::ndefWrite(const QString &text) {
+void NFCCommunicator::ndefWrite(const QString &text) {
     if (m_target != NULL) {
         QNdefNfcTextRecord ndefRecord;
         ndefRecord.setEncoding(QNdefNfcTextRecord::Utf8);
         ndefRecord.setText(text.toUtf8());
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
-        m_target->disconnect();
+//        m_target->disconnect();
     }
     
 }
-void Example::ndefWriteURI(const QUrl &uri) {
+void NFCCommunicator::ndefWriteURI(const QUrl &uri) {
     if (m_target != NULL) {
         QNdefNfcUriRecord ndefRecord;
         ndefRecord.setUri(uri);
         m_request = m_target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage(ndefRecord));
     }
 }
-void Example::ndefReadMessages() {
+void NFCCommunicator::ndefReadMessages() {
     
     if (m_target != NULL) {
         
@@ -64,7 +64,7 @@ void Example::ndefReadMessages() {
         qDebug() << "Dit komt van onszelf 3";
     }
 }
-void Example::ndefMessageRead(const QNdefMessage &message){
+void NFCCommunicator::ndefMessageRead(const QNdefMessage &message){
     for (const QNdefRecord &record : message) {
         if (record.isRecordType<QNdefNfcTextRecord>()) {
             qDebug() << ((QNdefNfcTextRecord)record).text(); 
@@ -82,13 +82,13 @@ void Example::ndefMessageRead(const QNdefMessage &message){
         }
     }
 }
-void Example::targetDetected(QNearFieldTarget *target)
+void NFCCommunicator::targetDetected(QNearFieldTarget *target)
 {
     qDebug() << "In Target Detected";
     m_target = target;
-    connect(target, &QNearFieldTarget::ndefMessageRead, this, &Example::ndefMessageRead);
+    connect(target, &QNearFieldTarget::ndefMessageRead, this, &NFCCommunicator::ndefMessageRead);
 }
-void Example::targetLost(QNearFieldTarget *target)
+void NFCCommunicator::targetLost(QNearFieldTarget *target)
 {
     m_target = NULL;
 }

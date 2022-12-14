@@ -14,13 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtQml>
-#include <QtQml/QQmlContext>
+#ifndef NFCCOMMUNICATOR_PLUGIN_H
+#define NFCCOMMUNICATOR_PLUGIN_H
 
-#include "plugin.h"
-#include "example.h"
+#include <QQmlExtensionPlugin>
 
-void ExamplePlugin::registerTypes(const char *uri) {
-    //@uri Example
-    qmlRegisterSingletonType<Example>(uri, 1, 0, "Example", [](QQmlEngine*, QJSEngine*) -> QObject* { return new Example; });
-}
+class NFCCommunicatorPlugin : public QQmlExtensionPlugin {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
+
+public:
+    void registerTypes(const char *uri);
+};
+
+#endif

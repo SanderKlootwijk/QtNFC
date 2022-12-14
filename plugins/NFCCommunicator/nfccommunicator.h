@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXAMPLE_H
-#define EXAMPLE_H
+#ifndef NFCCOMMUNICATOR_H
+#define NFCCOMMUNICATOR_H
 
 #include <QObject>
 #include <QNdefRecord>
@@ -25,12 +25,12 @@
 QT_FORWARD_DECLARE_CLASS(QNearFieldManager)
 QT_FORWARD_DECLARE_CLASS(QNdefRecord)
 
-class Example: public QObject {
+class NFCCommunicator: public QObject {
     Q_OBJECT
 
 public:
-    Example();
-    ~Example() = default;
+    NFCCommunicator();
+    ~NFCCommunicator() = default;
 
     Q_INVOKABLE void speak();
     Q_INVOKABLE void ndefWrite(const QString &text);
